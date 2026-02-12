@@ -62,12 +62,16 @@ button {
 }
 
 /* PHOTO */
-img {
-  width:70%;
-  max-width:320px;
-  border-radius:15px;
-  margin-top:20px;
-}
+<img id="photo">
+
+<script>
+let pics=["foto6.JPG","foto7.JPG","foto8.JPG","foto9.JPG","foto10.JPG","foto11.JPG","foto12.JPG"];
+let i=0;
+setInterval(()=>{
+ document.getElementById("photo").src=pics[i];
+ i=(i+1)%pics.length;
+},2000);
+</script>
 
 /* HEARTS */
 .heart {
