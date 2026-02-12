@@ -1,84 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Leonny Access System</title>
+<title>For Leonny 💙</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 body {
   margin:0;
   background:black;
-  color:#00ffe1;
-  font-family:monospace;
-  overflow:hidden;
-}
-
-/* HACKER SCREEN */
-#hack {
-  padding:20px;
-  font-size:16px;
-}
-
-/* PASSWORD SCREEN */
-#passScreen {
-  display:none;
-  text-align:center;
-  margin-top:30vh;
-}
-input {
-  padding:10px;
-  font-size:18px;
-  background:black;
-  border:2px solid #00ffe1;
-  color:#00ffe1;
-}
-button {
-  padding:10px 20px;
-  background:#00ffe1;
-  border:none;
-  font-size:16px;
-}
-
-/* LOVE SCREEN */
-#love {
-  display:none;
   color:white;
+  font-family:Arial, sans-serif;
+  overflow:hidden;
   text-align:center;
-  font-family:'Courier New';
-  padding:20px;
-}
-#text {
-  font-size:20px;
-  white-space:pre-line;
 }
 
-/* GALAXY BACKGROUND */
+/* BACKGROUND */
 #bg {
   position:fixed;
   top:0; left:0;
   width:100%; height:100%;
-  background: radial-gradient(circle at top, #050a30, black);
+  background: radial-gradient(circle at top, #0a0f3d, black);
   z-index:-1;
 }
 
-/* PHOTO */
-<img id="photo">
+/* TEXT */
+#text {
+  font-size:18px;
+  white-space:pre-line;
+  padding:20px;
+}
 
-<script>
-let pics=["foto6.JPG","foto7.JPG","foto8.JPG","foto9.JPG","foto10.JPG","foto11.JPG","foto12.JPG"];
-let i=0;
-setInterval(()=>{
- document.getElementById("photo").src=pics[i];
- i=(i+1)%pics.length;
-},2000);
-</script>
+/* PHOTO */
+#photo {
+  width:80%;
+  max-width:320px;
+  border-radius:15px;
+  margin-top:15px;
+  transition:opacity 1s;
+}
 
 /* HEARTS */
 .heart {
   position:fixed;
   color:red;
   font-size:20px;
-  animation:float 6s linear infinite;
+  animation: float 6s linear infinite;
 }
 @keyframes float {
   from {transform:translateY(100vh);}
@@ -91,74 +57,23 @@ setInterval(()=>{
 
 <div id="bg"></div>
 
-<!-- SONG -->
+<!-- MUSIC -->
 <audio id="bgm" loop>
-  <source src="jvke.pretty.mp3.mp3">
+  <source src="jvke.pretty.mp3.mp3" type="audio/mpeg">
 </audio>
 
+<h3>Tap anywhere to unlock my heart 💙</h3>
+
+<div id="text"></div>
+<img id="photo" src="foto6.png">
+
 <script>
+// PLAY MUSIC AFTER TAP (ANTI iPHONE BLOCK)
 document.body.addEventListener("click", () => {
   document.getElementById("bgm").play();
 });
-</script>
 
-<!-- HACKER LOADING -->
-<div id="hack"></div>
-
-<!-- PASSWORD -->
-<div id="passScreen">
-  <h2>Enter relationship password</h2>
-  <input id="pass" type="password" placeholder="DDMMYYYY">
-  <br><br>
-  <button onclick="checkPass()">Unlock</button>
-  <p id="error"></p>
-</div>
-
-<!-- LOVE MESSAGE -->
-<div id="love">
-  <div id="text"></div>
-  <img src="foto.jpg">
-</div>
-
-<script>
-let hackText = [
-"Initializing system...",
-"Searching memories...",
-"July 2024 found...",
-"HTS protocol loaded...",
-"22 August 2025 verified...",
-"Leonny.exe detected...",
-"Heart module locked...",
-"Enter password to decrypt feelings..."
-];
-
-let h=0;
-function hack(){
-  if(h < hackText.length){
-    document.getElementById("hack").innerHTML += hackText[h] + "<br>";
-    h++;
-    setTimeout(hack,700);
-  } else {
-    document.getElementById("passScreen").style.display="block";
-  }
-}
-hack();
-
-// PASSWORD CHECK
-function checkPass(){
-  let p = document.getElementById("pass").value;
-  if(p=="22082025"){
-    document.getElementById("passScreen").style.display="none";
-    document.getElementById("hack").style.display="none";
-    document.getElementById("love").style.display="block";
-    typeText();
-    hearts();
-  } else {
-    document.getElementById("error").innerHTML="Access denied. Leonny is protected.";
-  }
-}
-
-// TYPEWRITER LOVE TEXT
+// LOVE TEXT
 let msg = `
 Hi Leonny,
 
@@ -171,8 +86,8 @@ We stayed.
 
 No matter what you think about yourself,
 you are beautiful.
-You are perfect to me.
-And perfect to everyone.
+They are perfect to me,
+and perfect to everyone.
 
 I choose you every day.
 I love you, babe.
@@ -183,22 +98,43 @@ function typeText(){
   if(i < msg.length){
     document.getElementById("text").innerHTML += msg.charAt(i);
     i++;
-    setTimeout(typeText,40);
+    setTimeout(typeText, 40);
   }
 }
+typeText();
+
+// SLIDESHOW FOTO
+let pics = [
+"foto6.PNG",
+"foto7.PNG",
+"foto8.PNG",
+"foto9.PNG",
+"foto10.PNG",
+"foto11.PNG",
+"foto12.PNG"
+];
+
+let p=0;
+setInterval(()=>{
+  let img=document.getElementById("photo");
+  img.style.opacity=0;
+  setTimeout(()=>{
+    p=(p+1)%pics.length;
+    img.src=pics[p];
+    img.style.opacity=1;
+  },1000);
+},3000);
 
 // HEARTS
-function hearts(){
-  setInterval(()=>{
-    let h=document.createElement("div");
-    h.className="heart";
-    h.innerHTML="❤️";
-    h.style.left=Math.random()*100+"vw";
-    h.style.fontSize=(15+Math.random()*30)+"px";
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(),6000);
-  },200);
-}
+setInterval(()=>{
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=(15+Math.random()*35)+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},250);
 </script>
 
 </body>
