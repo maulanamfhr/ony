@@ -1,74 +1,132 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>For Leonny 💙</title>
+<title>For Leonny</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-body {
+body{
   margin:0;
   background:black;
   color:white;
-  font-family:Arial, sans-serif;
+  font-family:'Poppins',sans-serif;
   overflow:hidden;
   text-align:center;
 }
 
-#bg {
+/* LOCK SCREEN */
+#lockScreen{
   position:fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background: radial-gradient(circle at top, #0a0f3d, black);
-  z-index:-1;
+  width:100%;
+  height:100%;
+  background:black;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  z-index:10;
+  transition:opacity 1.5s;
+}
+#lockText{
+  font-size:22px;
+  opacity:0.8;
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  0%,100%{opacity:0.3}
+  50%{opacity:1}
 }
 
-#text {
+/* BACKGROUND GALAXY */
+#bg{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background: radial-gradient(circle at top, #1b1f5a, black);
+  z-index:-2;
+}
+
+/* STARS */
+.star{
+  position:fixed;
+  width:2px;
+  height:2px;
+  background:white;
+  opacity:0.6;
+  animation:moveStar linear infinite;
+}
+@keyframes moveStar{
+  from{transform:translateY(100vh);}
+  to{transform:translateY(-10vh);}
+}
+
+/* TEXT */
+#text{
   font-size:18px;
-  white-space:pre-line;
   padding:20px;
+  white-space:pre-line;
 }
 
-#photo {
-  width:80%;
-  max-width:320px;
-  border-radius:15px;
-  margin-top:15px;
-  transition:opacity 1s;
+/* PHOTO CINEMATIC */
+#photo{
+  width:85%;
+  max-width:350px;
+  border-radius:20px;
+  margin-top:10px;
+  transition:opacity 1s, transform 6s;
+  box-shadow:0 0 25px rgba(255,255,255,0.2);
 }
 
-.heart {
+/* HEARTS */
+.heart{
   position:fixed;
   color:red;
   font-size:20px;
-  animation: float 6s linear infinite;
+  animation:float 8s linear infinite;
 }
-@keyframes float {
-  from {transform:translateY(100vh);}
-  to {transform:translateY(-10vh);}
+@keyframes float{
+  from{transform:translateY(100vh);}
+  to{transform:translateY(-10vh);}
 }
 </style>
 </head>
 
 <body>
 
+<div id="lockScreen">
+  <div id="lockText">Tap to unlock my heart 💙</div>
+</div>
+
 <div id="bg"></div>
 
 <audio id="bgm" loop>
-  <source src="jvke.pretty.mp3.mp3" type="audio/mpeg">
+  <source src="jvke.pretty.mp3.mp3">
 </audio>
 
-<h3>Tap anywhere to unlock my heart 💙</h3>
-
 <div id="text"></div>
-<img id="photo" src="foto6.JPG">
+<img id="photo" src="foto6.JPG" style="opacity:0;">
 
 <script>
-// play music after tap
-document.body.addEventListener("click", () => {
+// STARS
+for(let s=0;s<100;s++){
+ let star=document.createElement("div");
+ star.className="star";
+ star.style.left=Math.random()*100+"vw";
+ star.style.animationDuration=(5+Math.random()*10)+"s";
+ document.body.appendChild(star);
+}
+
+// UNLOCK SCREEN
+document.body.addEventListener("click", ()=>{
+  document.getElementById("lockScreen").style.opacity=0;
+  setTimeout(()=>document.getElementById("lockScreen").style.display="none",1500);
+
   document.getElementById("bgm").play();
+  startText();
+  startPhotos();
 });
 
-// love message
+// TEXT TYPE
 let msg = `
 Hi Leonny,
 
@@ -81,55 +139,53 @@ We stayed.
 
 No matter what you think about yourself,
 you are beautiful.
-You are perfect to me,
-and perfect to everyone.
+Your eyes, your smile, your flaws —
+they are perfect to me, and perfect to the world.
 
 I choose you every day.
 I love you, babe.
 `;
 
 let i=0;
-function typeText(){
-  if(i < msg.length){
-    document.getElementById("text").innerHTML += msg.charAt(i);
+function startText(){
+ function type(){
+  if(i<msg.length){
+    document.getElementById("text").innerHTML+=msg.charAt(i);
     i++;
-    setTimeout(typeText, 40);
+    setTimeout(type,40);
   }
+ }
+ type();
 }
-typeText();
 
-// slideshow photos
-let pics = [
-"foto6.JPG",
-"foto7.JPG",
-"foto8.JPG",
-"foto9.JPG",
-"foto10.JPG",
-"foto11.JPG",
-"foto12.JPG"
-];
-
+// CINEMATIC SLIDESHOW
+let pics=["foto6.JPG","foto7.JPG","foto8.JPG","foto9.JPG","foto10.JPG","foto11.JPG","foto12.JPG"];
 let p=0;
-setInterval(()=>{
-  let img=document.getElementById("photo");
-  img.style.opacity=0;
-  setTimeout(()=>{
-    p=(p+1)%pics.length;
-    img.src=pics[p];
-    img.style.opacity=1;
-  },1000);
-},3000);
+function startPhotos(){
+ let img=document.getElementById("photo");
+ img.style.opacity=1;
+ setInterval(()=>{
+   img.style.opacity=0;
+   img.style.transform="scale(1)";
+   setTimeout(()=>{
+     p=(p+1)%pics.length;
+     img.src=pics[p];
+     img.style.opacity=1;
+     img.style.transform="scale(1.08)";
+   },1200);
+ },4000);
+}
 
-// falling hearts
+// HEARTS
 setInterval(()=>{
-  let h=document.createElement("div");
-  h.className="heart";
-  h.innerHTML="❤️";
-  h.style.left=Math.random()*100+"vw";
-  h.style.fontSize=(15+Math.random()*35)+"px";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),6000);
-},250);
+ let h=document.createElement("div");
+ h.className="heart";
+ h.innerHTML="❤️";
+ h.style.left=Math.random()*100+"vw";
+ h.style.fontSize=(15+Math.random()*40)+"px";
+ document.body.appendChild(h);
+ setTimeout(()=>h.remove(),8000);
+},400);
 </script>
 
 </body>
