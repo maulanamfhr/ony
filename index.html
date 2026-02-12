@@ -14,7 +14,6 @@ body {
   text-align:center;
 }
 
-/* BACKGROUND */
 #bg {
   position:fixed;
   top:0; left:0;
@@ -23,14 +22,12 @@ body {
   z-index:-1;
 }
 
-/* TEXT */
 #text {
   font-size:18px;
   white-space:pre-line;
   padding:20px;
 }
 
-/* PHOTO */
 #photo {
   width:80%;
   max-width:320px;
@@ -39,7 +36,6 @@ body {
   transition:opacity 1s;
 }
 
-/* HEARTS */
 .heart {
   position:fixed;
   color:red;
@@ -57,7 +53,6 @@ body {
 
 <div id="bg"></div>
 
-<!-- MUSIC -->
 <audio id="bgm" loop>
   <source src="jvke.pretty.mp3.mp3" type="audio/mpeg">
 </audio>
@@ -65,15 +60,15 @@ body {
 <h3>Tap anywhere to unlock my heart 💙</h3>
 
 <div id="text"></div>
-<img id="photo" src="foto6.png">
+<img id="photo" src="foto6.JPG">
 
 <script>
-// PLAY MUSIC AFTER TAP (ANTI iPHONE BLOCK)
+// play music after tap
 document.body.addEventListener("click", () => {
   document.getElementById("bgm").play();
 });
 
-// LOVE TEXT
+// love message
 let msg = `
 Hi Leonny,
 
@@ -86,7 +81,7 @@ We stayed.
 
 No matter what you think about yourself,
 you are beautiful.
-They are perfect to me,
+You are perfect to me,
 and perfect to everyone.
 
 I choose you every day.
@@ -103,15 +98,15 @@ function typeText(){
 }
 typeText();
 
-// SLIDESHOW FOTO
+// slideshow photos
 let pics = [
-"foto6.PNG",
-"foto7.PNG",
-"foto8.PNG",
-"foto9.PNG",
-"foto10.PNG",
-"foto11.PNG",
-"foto12.PNG"
+"foto6.JPG",
+"foto7.JPG",
+"foto8.JPG",
+"foto9.JPG",
+"foto10.JPG",
+"foto11.JPG",
+"foto12.JPG"
 ];
 
 let p=0;
@@ -125,7 +120,7 @@ setInterval(()=>{
   },1000);
 },3000);
 
-// HEARTS
+// falling hearts
 setInterval(()=>{
   let h=document.createElement("div");
   h.className="heart";
