@@ -1,171 +1,194 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>For Leonny ❤️</title>
+<title>Leonny Access System</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 body {
   margin:0;
   background:black;
-  color:white;
-  font-family:'Poppins', sans-serif;
+  color:#00ffe1;
+  font-family:monospace;
   overflow:hidden;
-  text-align:center;
 }
 
-#overlay {
-  position:fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background:black;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  z-index:9999;
-}
-
-#startBtn {
-  padding:15px 30px;
-  font-size:18px;
-  background:pink;
-  border:none;
-  border-radius:30px;
-  cursor:pointer;
-}
-
-#text {
-  position:fixed;
-  bottom:10%;
-  width:100%;
-  font-size:20px;
+/* HACKER SCREEN */
+#hack {
   padding:20px;
-  line-height:1.6;
+  font-size:16px;
+}
+
+/* PASSWORD SCREEN */
+#passScreen {
+  display:none;
+  text-align:center;
+  margin-top:30vh;
+}
+input {
+  padding:10px;
+  font-size:18px;
+  background:black;
+  border:2px solid #00ffe1;
+  color:#00ffe1;
+}
+button {
+  padding:10px 20px;
+  background:#00ffe1;
+  border:none;
+  font-size:16px;
+}
+
+/* LOVE SCREEN */
+#love {
+  display:none;
+  color:white;
+  text-align:center;
+  font-family:'Courier New';
+  padding:20px;
+}
+#text {
+  font-size:20px;
   white-space:pre-line;
 }
 
-.slide img {
+/* GALAXY BACKGROUND */
+#bg {
   position:fixed;
-  top:50%;
-  left:50%;
-  transform:translate(-50%, -50%);
-  width:70%;
-  max-width:350px;
-  border-radius:20px;
-  opacity:0;
-  transition:2s;
-  box-shadow:0 0 40px pink;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: radial-gradient(circle at top, #050a30, black);
+  z-index:-1;
 }
 
+/* PHOTO */
+img {
+  width:70%;
+  max-width:320px;
+  border-radius:15px;
+  margin-top:20px;
+}
+
+/* HEARTS */
 .heart {
   position:fixed;
-  color:pink;
+  color:red;
   font-size:20px;
-  animation:fall 6s linear infinite;
+  animation:float 6s linear infinite;
 }
-
-@keyframes fall {
-  0% {top:-10%; opacity:1;}
-  100% {top:110%; opacity:0;}
+@keyframes float {
+  from {transform:translateY(100vh);}
+  to {transform:translateY(-10vh);}
 }
 </style>
 </head>
 
 <body>
 
-<!-- START SCREEN -->
-<div id="overlay">
-  <h2>Hi Leonny 💖</h2>
-  <p>Tap to open my heart</p>
-  <button id="startBtn">Open</button>
-</div>
+<div id="bg"></div>
 
-<!-- MUSIC (ONLINE, NO UPLOAD NEEDED) -->
-<audio id="bgm" loop>
-  <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Scott_Holmes_Music/Happy_Music/Scott_Holmes_Music_-_03_-_Teamwork.mp3" type="audio/mpeg">
+<!-- SONG -->
+<audio autoplay loop>
+  <source src="song.mp3" type="audio/mpeg">
 </audio>
 
-<!-- SLIDESHOW PHOTOS -->
-<div class="slide">
-  <img src="foto1.jpg" id="p1">
-  <img src="foto2.jpg" id="p2">
-  <img src="foto3.jpg" id="p3">
-  <img src="foto4.jpg" id="p4">
+<!-- HACKER LOADING -->
+<div id="hack"></div>
+
+<!-- PASSWORD -->
+<div id="passScreen">
+  <h2>Enter relationship password</h2>
+  <input id="pass" type="password" placeholder="DDMMYYYY">
+  <br><br>
+  <button onclick="checkPass()">Unlock</button>
+  <p id="error"></p>
 </div>
 
-<div id="text"></div>
+<!-- LOVE MESSAGE -->
+<div id="love">
+  <div id="text"></div>
+  <img src="foto.jpg">
+</div>
 
 <script>
-// START BUTTON
-document.getElementById("startBtn").onclick = function(){
-  document.getElementById("overlay").style.display="none";
-  const music = document.getElementById("bgm");
-  music.volume = 0.6;
-  music.play();
-  startTyping();
-  startSlideshow();
-};
+let hackText = [
+"Initializing system...",
+"Searching memories...",
+"July 2024 found...",
+"HTS protocol loaded...",
+"22 August 2025 verified...",
+"Leonny.exe detected...",
+"Heart module locked...",
+"Enter password to decrypt feelings..."
+];
 
-// MESSAGE
-const message = `Hi Leonny,
+let h=0;
+function hack(){
+  if(h < hackText.length){
+    document.getElementById("hack").innerHTML += hackText[h] + "<br>";
+    h++;
+    setTimeout(hack,700);
+  } else {
+    document.getElementById("passScreen").style.display="block";
+  }
+}
+hack();
+
+// PASSWORD CHECK
+function checkPass(){
+  let p = document.getElementById("pass").value;
+  if(p=="22082025"){
+    document.getElementById("passScreen").style.display="none";
+    document.getElementById("hack").style.display="none";
+    document.getElementById("love").style.display="block";
+    typeText();
+    hearts();
+  } else {
+    document.getElementById("error").innerHTML="Access denied. Leonny is protected.";
+  }
+}
+
+// TYPEWRITER LOVE TEXT
+let msg = `
+Hi Leonny,
 
 we started as HTS in July 2024,
-and now we almost one year official since 22 August 2025.
+and now almost one year official since 22 August 2025.
 
 We survived.
 We grew.
 We stayed.
 
 No matter what you think about yourself,
-you are beautiful,
-you are my favorite girl,
-and I choose you every day.
+you are beautiful.
+You are perfect to me.
+And perfect to everyone.
 
-I know sometimes you feel insecure,
-but your eyes, your smile, your existence—
-they are perfect to me.
+I choose you every day.
+I love you, babe.
+`;
 
-And honestly,
-you are perfect not just for me,
-but for everyone who gets to know you.
-
-I love you, babe. 🤍`;
-
-let i = 0;
-function startTyping(){
-  function type(){
-    if(i < message.length){
-      document.getElementById("text").innerHTML += message.charAt(i);
-      i++;
-      setTimeout(type, 40);
-    }
+let i=0;
+function typeText(){
+  if(i < msg.length){
+    document.getElementById("text").innerHTML += msg.charAt(i);
+    i++;
+    setTimeout(typeText,40);
   }
-  type();
-}
-
-// SLIDESHOW
-function startSlideshow(){
-  let photos = ["p1","p2","p3","p4"];
-  let index = 0;
-  setInterval(()=>{
-    photos.forEach(id=>document.getElementById(id).style.opacity=0);
-    document.getElementById(photos[index]).style.opacity=1;
-    index = (index+1)%photos.length;
-  }, 4000);
 }
 
 // HEARTS
-setInterval(()=>{
-  let h = document.createElement("div");
-  h.className="heart";
-  h.innerHTML="❤️";
-  h.style.left=Math.random()*100+"vw";
-  h.style.animationDuration=(3+Math.random()*3)+"s";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),6000);
-},200);
+function hearts(){
+  setInterval(()=>{
+    let h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="❤️";
+    h.style.left=Math.random()*100+"vw";
+    h.style.fontSize=(15+Math.random()*30)+"px";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+  },200);
+}
 </script>
 
 </body>
