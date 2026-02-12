@@ -2,57 +2,115 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For Leonny 🤍</title>
+<title>For Leonny ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <style>
 body {
-  background: black;
-  color: white;
-  font-family: 'Poppins', sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  text-align: center;
-  overflow: hidden;
+  margin:0;
+  background:black;
+  color:white;
+  font-family:'Poppins', sans-serif;
+  overflow:hidden;
+  text-align:center;
+}
+
+#overlay {
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:black;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  z-index:9999;
+}
+
+#startBtn {
+  padding:15px 30px;
+  font-size:18px;
+  background:pink;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
 }
 
 #text {
-  font-size: 22px;
-  white-space: pre-line;
-  max-width: 80%;
-  line-height: 1.6;
+  position:fixed;
+  bottom:10%;
+  width:100%;
+  font-size:20px;
+  padding:20px;
+  line-height:1.6;
+  white-space:pre-line;
+}
+
+.slide img {
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  width:70%;
+  max-width:350px;
+  border-radius:20px;
+  opacity:0;
+  transition:2s;
+  box-shadow:0 0 40px pink;
 }
 
 .heart {
-  position: fixed;
-  bottom: -20px;
-  font-size: 20px;
-  animation: float 5s linear infinite;
-  color: red;
+  position:fixed;
+  color:pink;
+  font-size:20px;
+  animation:fall 6s linear infinite;
 }
 
-@keyframes float {
-  from {transform: translateY(0); opacity: 1;}
-  to {transform: translateY(-100vh); opacity: 0;}
+@keyframes fall {
+  0% {top:-10%; opacity:1;}
+  100% {top:110%; opacity:0;}
 }
 </style>
 </head>
 
 <body>
 
-<div id="text"></div>
+<!-- START SCREEN -->
+<div id="overlay">
+  <h2>Hi Leonny 💖</h2>
+  <p>Tap to open my heart</p>
+  <button id="startBtn">Open</button>
+</div>
 
-<!-- MUSIC -->
-<audio id="bgm" autoplay loop>
-  <source src="music.mp3" type="audio/mpeg">
+<!-- MUSIC (ONLINE, NO UPLOAD NEEDED) -->
+<audio id="bgm" loop>
+  <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Scott_Holmes_Music/Happy_Music/Scott_Holmes_Music_-_03_-_Teamwork.mp3" type="audio/mpeg">
 </audio>
 
+<!-- SLIDESHOW PHOTOS -->
+<div class="slide">
+  <img src="foto1.jpg" id="p1">
+  <img src="foto2.jpg" id="p2">
+  <img src="foto3.jpg" id="p3">
+  <img src="foto4.jpg" id="p4">
+</div>
+
+<div id="text"></div>
+
 <script>
-// volume
-document.getElementById("bgm").volume = 0.6;
+// START BUTTON
+document.getElementById("startBtn").onclick = function(){
+  document.getElementById("overlay").style.display="none";
+  const music = document.getElementById("bgm");
+  music.volume = 0.6;
+  music.play();
+  startTyping();
+  startSlideshow();
+};
 
 // MESSAGE
 const message = `Hi Leonny,
+
 we started as HTS in July 2024,
 and now we almost one year official since 22 August 2025.
 
@@ -65,44 +123,49 @@ you are beautiful,
 you are my favorite girl,
 and I choose you every day.
 
-I know sometimes you feel insecure about yourself.
-You think you're not enough,
-you think you’re not perfect.
-
-But to me, you are.
-Your eyes, your smile, your existence —
+I know sometimes you feel insecure,
+but your eyes, your smile, your existence—
 they are perfect to me.
 
 And honestly,
 you are perfect not just for me,
 but for everyone who gets to know you.
 
-You deserve love.
-You deserve happiness.
-You deserve everything good in this world.
+I love you, babe. 🤍`;
 
-I love you, babe.`;
-
-// typing effect
 let i = 0;
-function type() {
-  if (i < message.length) {
-    document.getElementById("text").innerHTML += message.charAt(i);
-    i++;
-    setTimeout(type, 35);
+function startTyping(){
+  function type(){
+    if(i < message.length){
+      document.getElementById("text").innerHTML += message.charAt(i);
+      i++;
+      setTimeout(type, 40);
+    }
   }
+  type();
 }
-type();
 
-// floating hearts
-setInterval(() => {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerHTML = "❤";
-  heart.style.left = Math.random() * 100 + "vw";
-  document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 5000);
-}, 250);
+// SLIDESHOW
+function startSlideshow(){
+  let photos = ["p1","p2","p3","p4"];
+  let index = 0;
+  setInterval(()=>{
+    photos.forEach(id=>document.getElementById(id).style.opacity=0);
+    document.getElementById(photos[index]).style.opacity=1;
+    index = (index+1)%photos.length;
+  }, 4000);
+}
+
+// HEARTS
+setInterval(()=>{
+  let h = document.createElement("div");
+  h.className="heart";
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(3+Math.random()*3)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},200);
 </script>
 
 </body>
