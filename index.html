@@ -88,9 +88,15 @@ img {
 <div id="bg"></div>
 
 <!-- SONG -->
-<audio autoplay loop>
-  <source src="jvke.pretty.mp3.mp3" type="audio/mpeg">
+<audio id="bgm" loop>
+  <source src="jvke.pretty.mp3.mp3">
 </audio>
+
+<script>
+document.body.addEventListener("click", () => {
+  document.getElementById("bgm").play();
+});
+</script>
 
 <!-- HACKER LOADING -->
 <div id="hack"></div>
